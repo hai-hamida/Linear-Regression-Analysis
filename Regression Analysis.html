@@ -1,0 +1,1755 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0902)https://mail-attachment.googleusercontent.com/attachment/u/0/?ui=2&ik=0a857ebe61&attid=0.1&permmsgid=msg-a:r6175783180427280449&th=16be3c9c363d6f4a&view=att&disp=inline&realattid=f_jxzf4j8s0&saddbat=ANGjdJ9j_go2VTS4UPubhrI11-4WUEpOo_hZM3Keov1v1lW8O4zUeTNTpLcr8ElLu7TPe2-yaOQW5DKwbHIqxqW5G8bJmJt8Epek4KegKQ0ryBmUrTv2ciCtqFYuQ0i4TsHxYCkBGNDn8PUuy_x6huy_kGtfhWVq_zKAwf6JHdLR-JtZCBzTJYZ6UHpRIE1wpS1QB_yqsHTciEAv0ckborXf0qVhOt-zIkAs_eFJx3VptzPAQi7PM2M6LM_Q3u40RjuvMtkJY9FkcF-NwSXuuq4IMbZrT5otVfSwLgs5USpHMBLbL8pjOEvGlerQs3s90GpUa27vu7gssV-aEpvLBjfowpkcL0cbj_lcMZiR8XL_dgbs45s9mcMxyrxq6AR8352ywgOuG2Rv7jLPQwjq0Zqhh8aXA5hLT5u3WTnWe-hE70SmwaGNVlgo_CkxcviSyIXJmVhv81JrIXJhP_6G8UvEQa2p0oDP_p6z4Xt3Elb1SAJ6Z7_a81idIe_AVKx1aiPtoLPK62d22AoFfiA0l5e_72MpGYDjaiGdcXPZWoVZzlbmuvVDJ1l545VYkYDq32hgRBfIfaTPfDPrzF7dvHkOVN19T0OlleeEUSnSTt5ynbE5rHnhDPwgQPOteFtvyaBrlDL_l8HvGZ5c8t9ieDjjAL6pTPqRETs6BJTdik0ggmj6cWMG2V2eybSWELM -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+<div><div style="display:none"></div>
+  <div>
+    <div>
+
+<div>
+<div>
+<div>In&nbsp;[438]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>"""I will be using 4 datasets on bitcoin daily trading for the years 2016-2019. I will be looking to find if there is a</span>
+<span>relationship (if any) between the Open price, High, Low, Closing price, Volume of bitcoins, or the Market Cap. I will</span>
+<span>be using simple linear regression analysis.</span>
+<span>The orange plots are for the year 2016, the silver plots are for the year 2017, and the green plots are for the year 2018."""</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[438]:</div>
+
+
+
+
+<div>
+<pre>'I will be using 4 datasets on bitcoin daily trading for the years 2016-2019. I will be looking to find if there is a\nrelationship (if any) between the Open price, High, Low, Closing price, Volume of bitcoins, or the Market Cap. I will\nbe using simple linear regression analysis.\nThe orange plots are for the year 2016, the silver plots are for the year 2017, and the green plots are for the year 2018.'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[359]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>import</span> <span>pandas</span> <span>as</span> <span>pd</span>
+<span>import</span> <span>numpy</span> <span>as</span> <span>np</span>
+<span>import</span> <span>matplotlib.pyplot</span> <span>as</span> <span>plt</span>
+<span>%</span><span>matplotlib</span> inline
+<span>from</span> <span>statsmodels.formula.api</span> <span>import</span> <span>ols</span> <span>as</span> <span>sm</span>
+<span>from</span> <span>sklearn.linear_model</span> <span>import</span> <span>LinearRegression</span>
+<span>from</span> <span>sklearn.model_selection</span> <span>import</span> <span>train_test_split</span>
+<span>from</span> <span>scipy.stats</span> <span>import</span> <span>linregress</span>
+<span>from</span> <span>sklearn</span> <span>import</span> <span>datasets</span><span>,</span> <span>linear_model</span>
+<span>import</span> <span>seaborn</span> <span>as</span> <span>sns</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[360]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Reading the file for bitcoin daily trading for the year 2016.</span>
+<span>#Renaming some of the columns so it will be easier to call later on.</span>
+<span>bit2016</span> <span>=</span> <span>pd</span><span>.</span><span>read_csv</span><span>(</span><span>'<wbr>2016bitcointrading.csv'</span><span>)</span>
+<span>bit2016</span><span>.</span><span>rename</span><span>(</span><span>columns</span> <span>=</span> <span>{</span><span>'Market Cap'</span><span>:</span><span>'Market_Cap'</span><span>,</span> <span>'Close**'</span><span>:</span><span>'Close'</span><span>,</span> <span>'Open*'</span><span>:</span><span>'Open'</span><span>},</span> <span>inplace</span> <span>=</span> <span>True</span><span>)</span>
+<span>bit2016</span><span>.</span><span>head</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[360]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31-Dec-16</td>
+      <td>960.63</td>
+      <td>963.74</td>
+      <td>947.24</td>
+      <td>963.74</td>
+      <td>99,135,104</td>
+      <td>15,492,554,222</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30-Dec-16</td>
+      <td>972.53</td>
+      <td>972.53</td>
+      <td>934.83</td>
+      <td>961.24</td>
+      <td>187,474,000</td>
+      <td>15,450,507,055</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29-Dec-16</td>
+      <td>975.13</td>
+      <td>979.40</td>
+      <td>954.50</td>
+      <td>973.50</td>
+      <td>199,320,000</td>
+      <td>15,645,617,392</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28-Dec-16</td>
+      <td>934.83</td>
+      <td>975.92</td>
+      <td>934.83</td>
+      <td>975.92</td>
+      <td>236,630,000</td>
+      <td>15,682,769,405</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27-Dec-16</td>
+      <td>908.35</td>
+      <td>940.05</td>
+      <td>904.26</td>
+      <td>933.20</td>
+      <td>167,308,000</td>
+      <td>14,994,286,713</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[361]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Here we are removing any commas in our data so we are able to call it later on.</span>
+<span>bit2016</span><span>[</span><span>'Market_Cap'</span><span>]</span> <span>=</span> <span>bit2016</span><span>[</span><span>'Market_Cap'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>s<wbr>tr</span><span>)</span><span>.</span><span>str</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2016</span><span>[</span><span>'Volume'</span><span>]</span> <span>=</span> <span>bit2016</span><span>[</span><span>'Volume'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span><wbr>str</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2016</span><span>[</span><span>'High'</span><span>]</span> <span>=</span> <span>bit2016</span><span>[</span><span>'High'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>st<wbr>r</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2016</span><span>[</span><span>'Open'</span><span>]</span> <span>=</span> <span>bit2016</span><span>[</span><span>'Open'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>st<wbr>r</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[362]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2016</span><span>.</span><span>head</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[362]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31-Dec-16</td>
+      <td>960.63</td>
+      <td>963.74</td>
+      <td>947.24</td>
+      <td>963.74</td>
+      <td>99135104</td>
+      <td>15492554222</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30-Dec-16</td>
+      <td>972.53</td>
+      <td>972.53</td>
+      <td>934.83</td>
+      <td>961.24</td>
+      <td>187474000</td>
+      <td>15450507055</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29-Dec-16</td>
+      <td>975.13</td>
+      <td>979.4</td>
+      <td>954.50</td>
+      <td>973.50</td>
+      <td>199320000</td>
+      <td>15645617392</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28-Dec-16</td>
+      <td>934.83</td>
+      <td>975.92</td>
+      <td>934.83</td>
+      <td>975.92</td>
+      <td>236630000</td>
+      <td>15682769405</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27-Dec-16</td>
+      <td>908.35</td>
+      <td>940.05</td>
+      <td>904.26</td>
+      <td>933.20</td>
+      <td>167308000</td>
+      <td>14994286713</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[402]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Returns some statistics on our dataframe.</span>
+<span>bit2016</span><span>.</span><span>describe</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[402]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>366.000000</td>
+      <td>366.000000</td>
+      <td>366.000000</td>
+      <td>366.000000</td>
+      <td>3.660000e+02</td>
+      <td>3.660000e+02</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>567.141503</td>
+      <td>574.302295</td>
+      <td>560.453415</td>
+      <td>568.492213</td>
+      <td>8.592451e+07</td>
+      <td>8.929758e+09</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>137.909543</td>
+      <td>140.461459</td>
+      <td>135.860670</td>
+      <td>139.255688</td>
+      <td>5.034484e+07</td>
+      <td>2.335454e+09</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>365.070000</td>
+      <td>374.950000</td>
+      <td>354.910000</td>
+      <td>364.330000</td>
+      <td>2.851400e+07</td>
+      <td>5.496598e+09</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>431.967500</td>
+      <td>434.687500</td>
+      <td>427.197500</td>
+      <td>432.205000</td>
+      <td>5.633540e+07</td>
+      <td>6.574682e+09</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>582.070000</td>
+      <td>588.960000</td>
+      <td>575.315000</td>
+      <td>582.555000</td>
+      <td>7.076340e+07</td>
+      <td>9.201876e+09</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>663.332500</td>
+      <td>673.192500</td>
+      <td>653.625000</td>
+      <td>664.227500</td>
+      <td>9.517587e+07</td>
+      <td>1.046715e+10</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>975.130000</td>
+      <td>979.400000</td>
+      <td>954.500000</td>
+      <td>975.920000</td>
+      <td>3.633210e+08</td>
+      <td>1.568277e+10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[403]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Changing the data types for the series in the dataframe so we can use them in our analysis.</span>
+<span>bit2016</span><span>.</span><span>Volume</span> <span>=</span> <span>bit2016</span><span>.</span><span>Volume</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2016</span><span>.</span><span>High</span> <span>=</span> <span>bit2016</span><span>.</span><span>High</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2016</span><span>.</span><span>Open</span> <span>=</span> <span>bit2016</span><span>.</span><span>Open</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2016</span><span>.</span><span>Close</span> <span>=</span> <span>bit2016</span><span>.</span><span>Close</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2016</span><span>.</span><span>Low</span> <span>=</span> <span>bit2016</span><span>.</span><span>Low</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2016</span><span>.</span><span>Market_Cap</span> <span>=</span> <span>bit2016</span><span>.</span><span>Market_Cap</span><span>.</span><span>astype</span><span>(</span><span>floa<wbr>t</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[410]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Assigning a series to our dependent and independent variables x and y.</span>
+<span>#Plotting our x and y variables.</span>
+<span>x</span> <span>=</span> <span>bit2016</span><span>.</span><span>Open</span>
+<span>y</span> <span>=</span> <span>bit2016</span><span>.</span><span>Close</span>
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>x</span><span>,</span><span>y</span><span>,</span> <span>color</span> <span>=</span> <span>'orange'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open Price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[411]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Creating a function that will return the slope and intercept for our x and y variables.</span>
+<span>def</span> <span>slope_intercept</span><span>(</span><span>x_val</span><span>,</span> <span>y_val</span><span>):</span>
+    <span>x</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>x_val</span><span>)</span>
+    <span>y</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>y_val</span><span>)</span>
+    <span>m</span> <span>=</span> <span>(((</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>y</span><span>))</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>*</span><span>y</span><span>))</span> <span>/</span> 
+       <span>((</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>))</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>*</span><span>x</span><span>)))</span>
+    <span>m</span> <span>=</span> <span>round</span><span>(</span><span>m</span><span>,</span><span>2</span><span>)</span>
+    <span>b</span> <span>=</span> <span>(</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>y</span><span>)</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>m</span><span>)</span>
+    <span>b</span> <span>=</span> <span>round</span><span>(</span><span>b</span><span>,</span><span>2</span><span>)</span>
+    <span>return</span> <span>m</span><span>,</span><span>b</span>
+
+<span>slope_intercept</span><span>(</span><span>x</span><span>,</span><span>y</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[411]:</div>
+
+
+
+
+<div>
+<pre>(1.0, 1.35)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[412]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>m</span><span>,</span><span>b</span> <span>=</span> <span>slope_intercept</span><span>(</span><span>x</span><span>,</span><span>y</span><span>)</span>
+<span>reg_line16</span> <span>=</span> <span>[(</span><span>m</span><span>*</span><span>i</span><span>)</span><span>+</span><span>b</span> <span>for</span> <span>i</span> <span>in</span> <span>x</span><span>]</span>
+
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>x</span><span>,</span><span>y</span><span>,</span> <span>color</span> <span>=</span> <span>'orange'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>x</span><span>,</span><span>reg_line16</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin open price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin close price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>"Regression line"</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[413]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#A function that returns the root mean square error.</span>
+<span>#The RMSE measures how spread out the residuals (prediction errors) are.</span>
+<span>def</span> <span>rmse</span><span>(</span><span>y1</span><span>,</span><span>y_hat</span><span>):</span>
+    <span>y_actual</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>y1</span><span>)</span>
+    <span>y_pred</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>y_hat</span><span>)</span>
+    <span>error</span> <span>=</span> <span>(</span><span>y_actual</span> <span>-</span> <span>y_pred</span><span>)</span><span>**</span><span>2</span>
+    <span>error_mean</span> <span>=</span> <span>round</span><span>(</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>error</span><span>))</span>
+    <span>error_sq</span> <span>=</span> <span>np</span><span>.</span><span>sqrt</span><span>(</span><span>error_mean</span><span>)</span>
+    <span>return</span> <span>error_sq</span>
+
+<span>rmse</span><span>(</span><span>y</span><span>,</span><span>reg_line16</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[413]:</div>
+
+
+
+
+<div>
+<pre>14.66287829861518</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[417]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Splitting the data into training and testing.</span>
+<span>#We will use one subset to train our model and the second subset to test our model.</span>
+<span>x</span> <span>=</span> <span>bit2016data</span><span>.</span><span>Open</span><span>.</span><span>values</span><span>.</span><span>reshap<wbr>e</span><span>(</span><span>-</span><span>1</span><span>,</span><span>1</span><span>)</span>
+<span>y</span> <span>=</span> <span>bit2016data</span><span>.</span><span>Close</span><span>.</span><span>values</span><span>.</span><span>resha<wbr>pe</span><span>(</span><span>-</span><span>1</span><span>,</span><span>1</span><span>)</span>
+
+<span>xTrain</span><span>,</span> <span>xTest</span><span>,</span> <span>yTrain</span><span>,</span> <span>yTest</span> <span>=</span> <span>train_test_split</span><span>(</span><span>x</span><span>,</span> <span>y</span><span>,</span> <span>test_size</span> <span>=</span> <span>1</span><span>/</span><span>4</span><span>,</span> <span>random_state</span> <span>=</span> <span>0</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[418]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>linearregressor</span> <span>=</span> <span>LinearRegression</span><span>()</span>
+
+<span>linearregressor</span><span>.</span><span>fit</span><span>(</span><span>xTrain</span><span>,</span><span>yTr<wbr>ain</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[418]:</div>
+
+
+
+
+<div>
+<pre>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[419]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Plotting our training data with the regression line.</span>
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>xTrain</span><span>,</span> <span>yTrain</span><span>,</span> <span>color</span> <span>=</span> <span>'orange'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>xTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>xTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Training set)'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[420]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Plotting our test data with the regression line.</span>
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>xTest</span><span>,</span> <span>yTest</span><span>,</span> <span>color</span> <span>=</span> <span>'orange'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>xTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>xTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Test set)'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2016'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[373]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>#Returns the mean for each series.</span>
+<span>bit2016</span><span>.</span><span>mean</span><span>(</span><span>axis</span><span>=</span><span>0</span><span>)</span>
+            
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[373]:</div>
+
+
+
+
+<div>
+<pre>Open          5.671415e+02
+High          5.743023e+02
+Low           5.604534e+02
+Close         5.684922e+02
+Volume        8.592451e+07
+Market_Cap    8.929758e+09
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[374]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2017</span> <span>=</span> <span>pd</span><span>.</span><span>read_csv</span><span>(</span><span>'<wbr>2017bitcointrading.csv'</span><span>)</span>
+<span>bit2017</span><span>.</span><span>head</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[374]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31-Dec-17</td>
+      <td>12,897.70</td>
+      <td>14,377.40</td>
+      <td>12,755.60</td>
+      <td>14,156.40</td>
+      <td>12,136,299,520</td>
+      <td>237,465,823,980</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30-Dec-17</td>
+      <td>14,681.90</td>
+      <td>14,681.90</td>
+      <td>12,350.10</td>
+      <td>12,952.20</td>
+      <td>14,452,599,808</td>
+      <td>217,239,803,085</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29-Dec-17</td>
+      <td>14,695.80</td>
+      <td>15,279.00</td>
+      <td>14,307.00</td>
+      <td>14,656.20</td>
+      <td>13,025,500,160</td>
+      <td>245,793,634,125</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28-Dec-17</td>
+      <td>15,864.10</td>
+      <td>15,888.40</td>
+      <td>13,937.30</td>
+      <td>14,606.50</td>
+      <td>12,336,499,712</td>
+      <td>244,929,825,575</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27-Dec-17</td>
+      <td>16,163.50</td>
+      <td>16,930.90</td>
+      <td>15,114.30</td>
+      <td>15,838.50</td>
+      <td>12,487,600,128</td>
+      <td>265,559,172,050</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[375]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2017</span><span>[</span><span>'Open'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'Open'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>st<wbr>r</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2017</span><span>[</span><span>'Low'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'Low'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span><wbr>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2017</span><span>[</span><span>'High'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'High'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>st<wbr>r</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2017</span><span>[</span><span>'Close'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'Close'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>s<wbr>tr</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2017</span><span>[</span><span>'Volume'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'Volume'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span><wbr>str</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2017</span><span>[</span><span>'Market_Cap'</span><span>]</span> <span>=</span> <span>bit2017</span><span>[</span><span>'Market_Cap'</span><span>]</span><span>.</span><span>astype</span><span>(</span><span>s<wbr>tr</span><span>)</span><span>.</span><span>str</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[376]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2017</span><span>.</span><span>head</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[376]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31-Dec-17</td>
+      <td>12897.70</td>
+      <td>14377.40</td>
+      <td>12755.60</td>
+      <td>14156.40</td>
+      <td>12136299520</td>
+      <td>237465823980</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30-Dec-17</td>
+      <td>14681.90</td>
+      <td>14681.90</td>
+      <td>12350.10</td>
+      <td>12952.20</td>
+      <td>14452599808</td>
+      <td>217239803085</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29-Dec-17</td>
+      <td>14695.80</td>
+      <td>15279.00</td>
+      <td>14307.00</td>
+      <td>14656.20</td>
+      <td>13025500160</td>
+      <td>245793634125</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28-Dec-17</td>
+      <td>15864.10</td>
+      <td>15888.40</td>
+      <td>13937.30</td>
+      <td>14606.50</td>
+      <td>12336499712</td>
+      <td>244929825575</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27-Dec-17</td>
+      <td>16163.50</td>
+      <td>16930.90</td>
+      <td>15114.30</td>
+      <td>15838.50</td>
+      <td>12487600128</td>
+      <td>265559172050</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[377]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2017</span><span>.</span><span>Open</span> <span>=</span> <span>bit2017</span><span>.</span><span>Open</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2017</span><span>.</span><span>Low</span> <span>=</span> <span>bit2017</span><span>.</span><span>Low</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2017</span><span>.</span><span>High</span> <span>=</span> <span>bit2017</span><span>.</span><span>High</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2017</span><span>.</span><span>Close</span> <span>=</span> <span>bit2017</span><span>.</span><span>Close</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2017</span><span>.</span><span>Volume</span> <span>=</span> <span>bit2017</span><span>.</span><span>Volume</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2017</span><span>.</span><span>Market_Cap</span> <span>=</span> <span>bit2017</span><span>.</span><span>Market_Cap</span><span>.</span><span>astype</span><span>(</span><span>floa<wbr>t</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[421]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>c</span> <span>=</span> <span>bit2017</span><span>.</span><span>Open</span>
+<span>d</span> <span>=</span> <span>bit2017</span><span>.</span><span>Close</span>
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>c</span><span>,</span><span>d</span><span>,</span> <span>color</span> <span>=</span> <span>'silver'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open Price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[424]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>def</span> <span>slope_intercept</span><span>(</span><span>x_val</span><span>,</span> <span>y_val</span><span>):</span>
+    <span>x</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>x_val</span><span>)</span>
+    <span>y</span> <span>=</span> <span>np</span><span>.</span><span>array</span><span>(</span><span>y_val</span><span>)</span>
+    <span>m</span> <span>=</span> <span>(((</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>y</span><span>))</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>*</span><span>y</span><span>))</span> <span>/</span> 
+       <span>((</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>))</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>*</span><span>x</span><span>)))</span>
+    <span>m</span> <span>=</span> <span>round</span><span>(</span><span>m</span><span>,</span><span>2</span><span>)</span>
+    <span>b</span> <span>=</span> <span>(</span><span>np</span><span>.</span><span>mean</span><span>(</span><span>y</span><span>)</span> <span>-</span> <span>np</span><span>.</span><span>mean</span><span>(</span><span>x</span><span>)</span><span>*</span><span>m</span><span>)</span>
+    <span>b</span> <span>=</span> <span>round</span><span>(</span><span>b</span><span>,</span><span>2</span><span>)</span>
+    <span>return</span> <span>m</span><span>,</span><span>b</span>
+
+<span>slope_intercept</span><span>(</span><span>c</span><span>,</span><span>d</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[424]:</div>
+
+
+
+
+<div>
+<pre>(1.0, 35.39)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[425]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>m</span><span>,</span><span>b</span> <span>=</span> <span>slope_intercept</span><span>(</span><span>c</span><span>,</span><span>d</span><span>)</span>
+<span>reg_line17</span> <span>=</span> <span>[(</span><span>m</span><span>*</span><span>i</span><span>)</span><span>+</span><span>b</span> <span>for</span> <span>i</span> <span>in</span> <span>c</span><span>]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[426]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>c</span><span>,</span><span>d</span><span>,</span> <span>color</span> <span>=</span> <span>'silver'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>c</span><span>,</span><span>reg_line17</span><span>,</span> <span>color</span><span>=</span><span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin open price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>"Regression line for 2017"</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[427]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>rmse</span><span>(</span><span>d</span><span>,</span><span>reg_line17</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[427]:</div>
+
+
+
+
+<div>
+<pre>402.17284841222187</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[428]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>c</span> <span>=</span> <span>bit2017</span><span>.</span><span>Open</span><span>.</span><span>values</span><span>.</span><span>reshape</span><span>(</span><span>-</span><span>1</span><span><wbr>,</span><span>1</span><span>)</span>
+<span>d</span> <span>=</span> <span>bit2017</span><span>.</span><span>Close</span><span>.</span><span>values</span><span>.</span><span>reshape</span><span>(</span><span>-</span><span><wbr>1</span><span>,</span><span>1</span><span>)</span>
+
+<span>cTrain</span><span>,</span> <span>cTest</span><span>,</span> <span>dTrain</span><span>,</span> <span>dTest</span> <span>=</span> <span>train_test_split</span><span>(</span><span>c</span><span>,</span> <span>d</span><span>,</span> <span>test_size</span> <span>=</span> <span>1</span><span>/</span><span>4</span><span>,</span> <span>random_state</span> <span>=</span> <span>0</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[429]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>cTrain</span><span>,</span> <span>dTrain</span><span>,</span> <span>color</span> <span>=</span> <span>'silver'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>cTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>cTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Training set) 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[430]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>cTest</span><span>,</span> <span>dTest</span><span>,</span> <span>color</span> <span>=</span> <span>'silver'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>cTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>cTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Test set) 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2017'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[386]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2017</span><span>.</span><span>mean</span><span>(</span><span>axis</span> <span>=</span> <span>0</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[386]:</div>
+
+
+
+
+<div>
+<pre>Open          3.970645e+03
+High          4.144688e+03
+Low           3.811708e+03
+Close         4.006034e+03
+Volume        2.382867e+09
+Market_Cap    6.645752e+10
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[387]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2018</span> <span>=</span> <span>pd</span><span>.</span><span>read_csv</span><span>(</span><span>'<wbr>2018bitcointrading.csv'</span><span>)</span>
+<span>bit2018</span><span>.</span><span>head</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[387]:</div>
+
+
+
+<div>
+<div>
+
+<table border="1">
+  <thead>
+    <tr style="text-align:right">
+      <th></th>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Market_Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31-Dec-18</td>
+      <td>3,866.84</td>
+      <td>3,868.74</td>
+      <td>3,725.87</td>
+      <td>3,742.70</td>
+      <td>4,661,840,806</td>
+      <td>65,331,499,158</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30-Dec-18</td>
+      <td>3,822.38</td>
+      <td>3,901.91</td>
+      <td>3,797.22</td>
+      <td>3,865.95</td>
+      <td>4,770,578,575</td>
+      <td>67,475,512,827</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>29-Dec-18</td>
+      <td>3,932.49</td>
+      <td>3,963.76</td>
+      <td>3,820.41</td>
+      <td>3,820.41</td>
+      <td>4,991,655,917</td>
+      <td>66,672,244,158</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>28-Dec-18</td>
+      <td>3,653.13</td>
+      <td>3,956.14</td>
+      <td>3,642.63</td>
+      <td>3,923.92</td>
+      <td>5,631,554,348</td>
+      <td>68,471,837,969</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27-Dec-18</td>
+      <td>3,854.69</td>
+      <td>3,874.42</td>
+      <td>3,645.45</td>
+      <td>3,654.83</td>
+      <td>5,130,222,366</td>
+      <td>63,768,757,101</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[388]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2018</span><span>.</span><span>Open</span> <span>=</span> <span>bit2018</span><span>.</span><span>Open</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span>.</span><span>r<wbr>eplace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Close</span> <span>=</span> <span>bit2018</span><span>.</span><span>Close</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span>.</span><span><wbr>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2018</span><span>.</span><span>High</span> <span>=</span> <span>bit2018</span><span>.</span><span>High</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span>.</span><span>r<wbr>eplace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Low</span> <span>=</span> <span>bit2018</span><span>.</span><span>Low</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span>.</span><span>re<wbr>place</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Volume</span> <span>=</span> <span>bit2018</span><span>.</span><span>Volume</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span>.</span><span>str</span><span><wbr>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Market_Cap</span> <span>=</span> <span>bit2018</span><span>.</span><span>Market_Cap</span><span>.</span><span>astype</span><span>(</span><span>str</span><span>)</span><span><wbr>.</span><span>str</span><span>.</span><span>replace</span><span>(</span><span>','</span><span>,</span><span>''</span><span>)</span>                      
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[389]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2018</span><span>.</span><span>Open</span> <span>=</span> <span>bit2018</span><span>.</span><span>Open</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Low</span> <span>=</span> <span>bit2018</span><span>.</span><span>Low</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2018</span><span>.</span><span>High</span> <span>=</span> <span>bit2018</span><span>.</span><span>High</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Close</span> <span>=</span> <span>bit2018</span><span>.</span><span>Close</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Volume</span> <span>=</span> <span>bit2018</span><span>.</span><span>Volume</span><span>.</span><span>astype</span><span>(</span><span>float</span><span>)</span>
+<span>bit2018</span><span>.</span><span>Market_Cap</span> <span>=</span> <span>bit2018</span><span>.</span><span>Market_Cap</span><span>.</span><span>astype</span><span>(</span><span>floa<wbr>t</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[431]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>p</span> <span>=</span> <span>bit2018</span><span>.</span><span>Open</span>
+<span>q</span> <span>=</span> <span>bit2018</span><span>.</span><span>Close</span>
+<span>plt</span><span>.</span><span>scatter</span><span>(</span><span>p</span><span>,</span><span>q</span><span>,</span> <span>color</span> <span>=</span> <span>'green'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open Price per day 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[432]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>slope_intercept</span><span>(</span><span>p</span><span>,</span><span>q</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[432]:</div>
+
+
+
+
+<div>
+<pre>(0.98, 123.3)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[433]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>m</span><span>,</span><span>b</span> <span>=</span> <span>slope_intercept</span><span>(</span><span>p</span><span>,</span><span>q</span><span>)</span>
+<span>reg_line18</span> <span>=</span> <span>[(</span><span>m</span><span>*</span><span>i</span><span>)</span><span>+</span><span>b</span> <span>for</span> <span>i</span> <span>in</span> <span>p</span><span>]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[434]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>p</span><span>,</span><span>q</span><span>,</span> <span>color</span> <span>=</span> <span>'green'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>p</span><span>,</span><span>reg_line18</span><span>,</span> <span>color</span><span>=</span><span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin open price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin low price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>"Regression line for 2018"</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[435]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>rmse</span><span>(</span><span>q</span><span>,</span><span>reg_line18</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[435]:</div>
+
+
+
+
+<div>
+<pre>381.20860431002865</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[395]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>p</span> <span>=</span> <span>bit2018</span><span>.</span><span>Open</span><span>.</span><span>values</span><span>.</span><span>reshape</span><span>(</span><span>-</span><span>1</span><span><wbr>,</span><span>1</span><span>)</span>
+<span>q</span> <span>=</span> <span>bit2018</span><span>.</span><span>Close</span><span>.</span><span>values</span><span>.</span><span>reshape</span><span>(</span><span>-</span><span><wbr>1</span><span>,</span><span>1</span><span>)</span>
+
+<span>pTrain</span><span>,</span> <span>pTest</span><span>,</span> <span>qTrain</span><span>,</span> <span>qTest</span> <span>=</span> <span>train_test_split</span><span>(</span><span>p</span><span>,</span> <span>q</span><span>,</span> <span>test_size</span> <span>=</span> <span>1</span><span>/</span><span>2</span><span>,</span> <span>random_state</span> <span>=</span> <span>0</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[436]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>pTrain</span><span>,</span> <span>qTrain</span><span>,</span> <span>color</span> <span>=</span> <span>'green'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>pTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>pTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Training set) 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[437]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>plt</span><span>.</span><span>scatter</span><span>(</span><span>pTest</span><span>,</span> <span>qTest</span><span>,</span> <span>color</span> <span>=</span> <span>'green'</span><span>)</span>
+<span>plt</span><span>.</span><span>plot</span><span>(</span><span>pTrain</span><span>,</span> <span>linearregressor</span><span>.</span><span>predict</span><span>(</span><span>pTrain</span><span><wbr>),</span> <span>color</span> <span>=</span> <span>'black'</span><span>)</span>
+<span>plt</span><span>.</span><span>title</span><span>(</span><span>'Open vs. Close (Test set) 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>xlabel</span><span>(</span><span>'Bitcoin Open price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>ylabel</span><span>(</span><span>'Bitcoin Close price per day, 2018'</span><span>)</span>
+<span>plt</span><span>.</span><span>show</span><span>()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div></div>
+
+
+
+
+<div>
+<img>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div>
+<div>
+<div>In&nbsp;[398]:</div>
+<div>
+    <div>
+<div><pre><span></span><span>bit2018</span><span>.</span><span>mean</span><span>(</span><span>axis</span> <span>=</span> <span>0</span><span>)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div>
+<div>
+
+
+<div>
+
+<div>Out[398]:</div>
+
+
+
+
+<div>
+<pre>Open          7.601019e+03
+High          7.787979e+03
+Low           7.350748e+03
+Close         7.572299e+03
+Volume        6.063552e+09
+Market_Cap    1.292673e+11
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    </div>
+  </div>
+
+
+ 
+
+
+
+</div></body></html>
